@@ -1,0 +1,7 @@
+Documentation
+=============
+
+* link:./evaluation.adoc[Course evaluation].
+* link:./calendar.adoc[Course calendar].
+* link:./resources-previous-semesters.adoc[Resources from previous semesters].
+* link:./lecture-notes[Lecture notes].

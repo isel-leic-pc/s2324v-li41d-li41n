@@ -1,0 +1,55 @@
+Concurrent Programming course introduction
+==========================================
+
+Goals
+-----
+
+In summary, provide the knowledge and skills required to design and implement applications over multi-threaded and asynchronous programming models, with emphasis on the concurrency and coordination aspects.
+
+See link:https://www.isel.pt/sites/default/files/FUC_LEIC/4sem/PC_LEIC.pdf[_Ficha de Unidade Curricular_].
+
+Programme
+---------
+
+* Introduction to multi-threaded models and concurrent programming.
+
+* Design of custom synchronizers using monitors on the JVM platform.
+
+* Memory models and lock-free algorithms and data structures.
+
+* Asynchronous I/O and asynchronous programming models on the JVM platform and the Kotlin language.
+
+See link:../calendar.adoc[calendar] for a more details programme, including *relevant dates* for this semester.
+
+Evaluation
+----------
+
+See link:../evaluation.adoc[evaluation].
+
+Resources
+---------
+
+* This GitHub repository.
+* https://jcip.net[Brian Goetz, Java Concurrency in Practice, 2006].
+
+## Logistics
+
+* Native development environment.
+** link:https://www.docker.com/products/docker-desktop/[Docker desktop].
+** link:https://code.visualstudio.com[Visual Studio Code] with the link:https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers[Dev containers] extension.
+** Alternatively use the PSC development environment.
+
+* JVM development environment.
+** Kotlin programming language
+** JDK 21.
+** Gradle build system.
+** IDE (e.g. https://www.jetbrains.com/idea/download/[IntelliJ Community Edition]).
+
+* Slack and Zoom for remote and asynchronous support.
+** See https://2324moodle.isel.pt/course/view.php?id=7916[Moodle] for details.
+
+## Requirements
+
+* Student requirements:
+** Able to understand and create Kotlin language programs (TDS level).
+** Understanding of the x86/x64 assembly language model and of how high-level structured programming concepts are mapped into assembly language (PSC level).

@@ -1,0 +1,87 @@
+Course Calendar
+===============
+
+Work assignments calendar (tentative)
+-------------------------------------
+
+* First assignment: published until March 11 (start of week 4) and delivered until April 2 (end of week 7).
+* Second assignment: published until April 15 (start of week 9) and delivered until May 4 (end of week 11).
+* Third assignment: published until May 6 (start of week 12) and delivered until May 25 (end of week 14).
+
+Weekly tentative schedule
+-------------------------
+
+* W1 - 2024-02-21
+** Course introduction
+** Introduction to concurrent programming in the JVM platform.
+*** Motivation.
+*** Thread creation and basic synchronization.
+*** Threading hazards.
+** Note: LEIC51D is delayed by one class.
+
+* W2 - 2024-02-26
+** Continuation of the introduction to concurrent programming in the JVM platform.
+*** Creating tests using multiple threads.
+*** Platform vs. virtual threads.
+** The `uthreads` multi-threading system.
+*** Context and context switching.
+*** Thread scheduling and thread states.
+*** Interaction between I/O, thread states, and scheduling.
+
+* W3 - 2024-03-04
+** Structured concurrency.
+
+* W4 - 2024-03-11
+** Data synchronization.
+*** Data sharing between threads: identification (args, locals, fields, statics, captured context).
+*** Mutual exclusion and locks in the JVM.
+** Thread coordination and control synchronization.
+*** The _synchronizer_ concept.
+*** Example: the semaphore synchronized.
+
+* W5 - 2024-03-18
+** The monitor concept.
+** Implementing custom synchronizers using monitors.
+
+* W6 - 2024-03-25
+** Implementing custom synchronizers using monitors.
+
+* W7 - 2024-04-01
+** Introduction to the memory model concept and the Java Memory Model (JMM).
+** Note: LEIC41N - Easter break on Friday.
+
+* W8 - 2024-04-08
+** Lock-free algorithms and data structures.
+** Note: LEIC41D - Easter break on Monday.
+
+* W9 - 2024-04-15
+** Asynchronous I/O in the JVM platform - NIO2.
+** Defining sequential computations on the callback model using state machines.
+
+* W10 - 2024-04-22
+** Futures and promises in the JVM platform - the `CompletableFuture` class.
+*** Operators and composition.
+*** Comparison with promises and asynchronous functions in the Javascript platform. 
+
+* W11 - 2024-04-29
+** Kotlin coroutines
+*** Coroutine creation and management. Structured concurrency.
+*** `suspend` functions and the CPS transformation.
+*** coroutine suspension and converting callbacks into `suspend`` functions
+
+* W12 - 2024-05-06
+** Coroutine coordination and control synchronization.
+
+* W13 - 2024-05-13
+** Kotlin flow.
+
+* W14 - 2024-05-20
+** Work assignment support. 
+
+* W15 - 2024-05-27
+** Work assignment evaluation.
+
+* W16 - 2024-06-03
+** Work assignment evaluation.
+** Note: LEIC41N - only 1,5h on Monday.
+
