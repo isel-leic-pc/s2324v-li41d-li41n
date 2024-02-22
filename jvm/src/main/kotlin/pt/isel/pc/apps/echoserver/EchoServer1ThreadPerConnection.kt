@@ -10,19 +10,19 @@ import java.net.Socket
 import java.util.*
 
 private fun main() {
-    EchoServer0SingleThreaded().run("0.0.0.0", 8080)
+    EchoServer1ThreadPerConnection().run("0.0.0.0", 8080)
 }
 
-class EchoServer0SingleThreaded {
+class EchoServer1ThreadPerConnection {
 
     companion object {
-        private val logger: Logger = LoggerFactory.getLogger(EchoServer0SingleThreaded::class.java)
+        private val logger: Logger = LoggerFactory.getLogger(EchoServer1ThreadPerConnection::class.java)
         private const val EXIT_LINE = "exit"
     }
 
     fun run(address: String, port: Int) {
         ServerSocket().use { serverSocket ->
-            serverSocket.bind(InetSocketAddress(address, port))
+            serverSocket.bind(InetSocketAddress(address, port), 100_000)
             logger.info("server socket bound to {}:{}", address, port)
             acceptLoop(serverSocket)
         }
@@ -30,11 +30,16 @@ class EchoServer0SingleThreaded {
 
     private fun acceptLoop(serverSocket: ServerSocket) {
         var clientId = 0
+        val threadBuilder = Thread.ofPlatform()
         while (true) {
             logger.info("server socket is waiting for an incoming connection")
             val socket = serverSocket.accept()
             logger.info("incoming connection accepted, remote address is {}", socket.inetAddress.hostAddress)
-            echoLoop(socket, ++clientId)
+            val newClientId = ++clientId
+            threadBuilder.start {
+                logger.info("created and started thread to handle client {}", newClientId)
+                echoLoop(socket, newClientId)
+            }
         }
     }
 
