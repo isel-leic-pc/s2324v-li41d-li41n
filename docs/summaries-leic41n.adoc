@@ -1,0 +1,21 @@
+= Lecture summaries
+:toc: auto
+
+== Week 1
+
+=== Lecture 1: 2023-02-23
+
+* Course introduction.
+** Goals.
+** Contents.
+** Evaluation.
+* Introduction to concurrent programming via a motivating example - a simple TCP/IP echo server.
+** The need for multiple flows of execution.
+** Creating threads in the JVM.
+** Challenges: access to mutable shared data, thread coordination.
+* Access to mutable shared data and concurrency hazards.
+* Lecture resources.
+** link:lecture-notes/0-course-introduction.adoc[Lecture Note].
+** link:lecture-notes/1-a-motivating-example.adoc[A motivating example].
+** link:lecture-notes/2-threading-data-hazards.adoc[Threading data hazards].
+** https://2324moodle.isel.pt/course/view.php?id=7916[Moodle]

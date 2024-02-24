@@ -1,0 +1,141 @@
+= Threading data hazards
+
+The link:../../jvm/src/test/kotlin/pt/isel/pc/basics/ThreadingHazardsTests.kt[ThreadingHazardsTests] class presents several examples of incorrect behavior when multiple threads access shared mutable state - the so called _data hazards_.
+
+== Loosing increments
+
+The `loosing increments - using separate method` and `loosing increments - using lambda` tests create multiple threads that repeatedly increment a shared counter.
+The final counter value is then compared with what would be the _expected_ number if there weren't concurrency hazards, i.e., the number of threads times the number of increments done by each thread.
+However, the observed value is typically smaller that expected value -
+apparently there are _lost updates_.
+
+A possible cause for that behavior becomes visible when we consider an increment to be constituted by three distinct operations: a load from memory into the CPU, an increment done in the CPU, and an store from the CPU into the CPU.
+
+Consider two threads, running on distinct CPUs, doing an increment over a shared counter.
+A possible execution order is illustrated below.
+
+```
+
+counter has value 0
+
+thread-0 on cpu-0               thread-1 on cpu-1
+-------------------             ------------------- 
+
+
+reg <- counter
+    (reg == 0)
+                                reg <- counter
+                                    (reg == 0)
+inc(reg)
+    (reg == 1)
+                                inc(reg)
+                                    (reg == 1)
+counter <- reg
+    (counter == 1)                                
+                                counter <- reg
+                                    (counter == 1) 
+-------------------             ------------------- 
+
+counter now has value 1
+```
+
+Note how after the two increments, the counter has the value 1 and not 2.
+A increment was apparently lost!
+This happens because both threads read the same value 0 into the register, meaning that both threads will write 1.
+
+If the execution was serialized, i.e., the read by one thread only happened after the write by the other thread, then the final value would be 2.
+
+
+```
+
+counter has value 0
+---------------------------------------------------
+
+thread-0 on cpu-0               thread-1 on cpu-1
+-------------------             ------------------- 
+
+
+reg <- counter
+    (reg == 0)                                
+inc(reg)
+    (reg == 1)
+counter <- reg
+    (counter == 1)               
+                                reg <- counter
+                                    (reg == 1)
+                                inc(reg)
+                                    (reg == 2)                                                     
+                                counter <- reg
+                                    (counter == 2) 
+---------------------------------------------------
+counter has value 2
+```
+
+However this serialization is not ensured, except if additional mechanisms are used.
+
+Note also how this behavior is not deterministic:
+If the read by `cpu-1` had happened after the write by `cpu-0` then the final value would be 2 and not 1.
+
+The execution diagrams presented above are a very simplistic view of what happens on a multiple processor system, ignoring things such as processor pipelines or cache systems.
+Given this, how can we reason about what happens on shared mutable state?
+Do we need to know what the fine details about how processors and caching systems work?
+
+The answer is surprising simple: we must assume that all accesses to mutable shared state done by multiple threads will result in a behavior that is different if the accesses were done by the same threads.
+I.e., access to mutable shared state is _incorrect by default_.
+
+If we want to have deterministic and predictable behavior we need to explicitly use _data synchronization mechanisms_ when doing those accesses, which we will study in future lectures.
+
+
+== Loosing insertions
+
+The `loosing items on a linked list` test illustrates a similar problem, where instead of having multiple threads doing increments we have multiple threads inserting elements in a shared list.
+Again, the final state of this shared list may be surprising for the apprentice programmer.
+The number of item is not the same as the number of insertions in the list - there were lost insertions.
+The cause is similar to the one described above.
+
+== Check-then-act
+
+The `loosing increments with a synchronized map and atomics` illustrates another instance of a concurrency hazard.
+In this example we have a map that supports concurrent access by multiple threads.
+Internally, this map already uses data synchronization mechanisms on each of its operations.
+The values used in the map are _atomic integers_, which also already use data synchronization mechanisms on its operation.
+Namely, _atomic integers_ have an increment operation that can be safely used by multiple threads concurrently.
+
+However, we still observe an _incorrect_ behavior: the number of increments is not the product of threads by the number of increments done by each thread.
+The cause for this is in this code
+[source, kotlin]
+----
+    val data = map[key]
+    if (data == null) {
+        map[key] = AtomicInteger(1)
+    } else {
+        data.incrementAndGet()
+    }
+----
+Lets consider two threads simultaneous executing this code in different processors.
+
+```
+map[key] == null // there isn't yet any value for key.
+---------------------------------------------------
+thread-0 on cpu-0               thread-1 on cpu-1
+-------------------             ------------------- 
+val data = map[key]
+    (data is null)
+                                val data = map[key]
+                                    (data is null)
+map[key] = AtomicInteger(1)
+                                map[key] = AtomicInteger(1)
+
+---------------------------------------------------
+map[key] == AtomicInteger(1)
+```
+
+If both threads observe the map without a value for the key `key`, then both threads will insert an atomic integer with value 1, resulting in a lost increment.
+Note how this happens even if the map and the atomic integer ensure correct operation when accessed by multiple threads.
+The problem is not in the individual operations but is in the composition of the two operations: checking if the values exists and inserting the initial value if it doesn't exist.
+
+It is common to designate this type of errors as a _check-then-act_ errors: 
+an algorithm observes the state of a data structures (_checks_), and then does an mutation on that data structure (_acts_) _presuming_ the current state is the same as what was observed.
+However, in a multi-threading context the data structure state may have been changed by a different thread between the _check_ and the _act_.
+This type of reasoning holds if a single thread access the data structure, however is no longer valid in multi-threading scenarios.
+ 

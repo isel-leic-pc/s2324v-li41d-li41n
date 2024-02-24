@@ -2,3 +2,5 @@ Lecture notes
 =============
 
 * link:./0-course-introduction.adoc[Course introduction].
+* link:./1-a-motivating-example.adoc[A motivating example].
+* link:./2-threading-data-hazards.adoc[Threading data hazards].
