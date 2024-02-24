@@ -18,6 +18,8 @@ private const val N_OF_THREADS = 10
 // Number of repetitions performed by each thread
 private const val N_OF_REPS = 1000000
 
+private val threadBuilder: Thread.Builder = Thread.ofPlatform()
+
 /**
  * Test class illustrating common errors due to the use of shared mutable date
  * by more than one thread.
@@ -41,7 +43,7 @@ class ThreadingHazardsTests {
     fun `loosing increments - using separate method`() {
         // when: creating N_OF_THREADS that each increment simpleCounter N_OF_REPS times
         val threads = List(N_OF_THREADS) {
-            Thread(this::incrementSimpleCounter).apply(Thread::start)
+            threadBuilder.start(this::incrementSimpleCounter)
         }
         // and: waiting for these threads to end
         threads.forEach(Thread::join)
@@ -54,12 +56,12 @@ class ThreadingHazardsTests {
     fun `loosing increments - using lambda`() {
         // when: creating N_OF_THREADS that each increment simpleCounter N_OF_REPS times
         val threads = List(N_OF_THREADS) {
-            Thread {
+            threadBuilder.start {
                 // note that this code runs in a different thread
                 repeat(N_OF_REPS) {
                     simpleCounter += 1
                 }
-            }.apply(Thread::start)
+            }
         }
 
         // and: waiting for these threads to end
@@ -102,12 +104,12 @@ class ThreadingHazardsTests {
     fun `loosing items on a linked list`() {
         // when: creating N_OF_THREADS that each insert '1' N_OF_REPS times on the list
         val threads = List(N_OF_THREADS) {
-            Thread {
+            threadBuilder.start {
                 // note that this code runs in a different thread
                 repeat(N_OF_REPS) {
                     nonThreadSafeList.push(1)
                 }
-            }.apply(Thread::start)
+            }
         }
 
         // and: waiting for these threads to end
@@ -141,7 +143,7 @@ class ThreadingHazardsTests {
     fun `loosing increments with a synchronized map and atomics`() {
         // when: creating N_OF_THREADS that each increment the counters associated to the keys [1, N_OF_THREADS[
         val threads = List(N_OF_THREADS) {
-            Thread {
+            threadBuilder.start {
                 repeat(N_OF_REPS) { key ->
                     val data = map[key]
                     if (data == null) {
@@ -150,7 +152,7 @@ class ThreadingHazardsTests {
                         data.incrementAndGet()
                     }
                 }
-            }.apply(Thread::start)
+            }
         }
 
         // and: waiting for all threads to end
@@ -173,13 +175,13 @@ class ThreadingHazardsTests {
     @Test
     fun `NOT loosing increments with a ConcurrentHashMap and computeIfAbsent`() {
         val threads = List(N_OF_THREADS) {
-            Thread {
+            threadBuilder.start {
                 (0 until N_OF_REPS).forEach { key ->
                     concurrentMap.computeIfAbsent(key) {
                         AtomicInteger(0)
                     }.incrementAndGet()
                 }
-            }.apply(Thread::start)
+            }
         }
 
         threads.forEach(Thread::join)
@@ -206,12 +208,12 @@ class ThreadingHazardsTests {
     @Test
     fun `loosing increments of volatile field`() {
         val threads = List(N_OF_THREADS) {
-            Thread {
+            threadBuilder.start {
                 // note that this code runs in a different thread
                 repeat(N_OF_REPS) {
                     simpleVolatileCounter += 1
                 }
-            }.apply(Thread::start)
+            }
         }
 
         threads.forEach(Thread::join)
