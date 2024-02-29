@@ -1,2 +1,43 @@
 # Exercises about `uthreads`
 
+To develop and run `uthreads` with Visual Studio Code in a container, use the following procedure:
+* Make sure Docker Desktop is installed.
+* Open Visual Studio Code in the `native` folder.
+* Make sure the `Dev Containers` extension is installed.
+* On the bottom left corner, click the icon and select `Open in container`.
+* Open a terminal in Visual Studio Code and run
+** `uname` - Should print `Linux`, meaning that it is a shell running on Linux and not on the host OS.
+** `gcc --version` - Should print something like `gcc (Debian 12.2.0-14) 12.2.0`, meaning that the C development tools are available.
+* To reopen Visual Studio Code on the host OS, use the bottom left corner and select `Reopen Folder Locally`.
+
+## uthreads-0-minimal
+
+* When does a call to `ut_run` returns?
+.. Always before any other thread runs.
+.. After `context_switch` is called once on each thread.
+.. After the main thread calls `ut_yield`.
+.. When there aren't anymore threads in the ready state. 
+
+* What does `ut_init` does?
+.. Allocate the stack for the main thread.
+.. Creates the main thread.
+.. Initializes the ready queue.
+.. Does a context_switch.
+
+* When is the memory for the thread descriptor de-allocated?
+.. Never.
+.. When `ut_free` is called.
+.. When `context_switch_and_free` is called.
+.. when `ut_run` returns.
+
+* The location of each thread stack and descriptor is
+.. Unrelated.
+.. The descriptor is located at the top of the memory area reserved for the stack.
+.. The descriptor is located at the bottom of the memory area reserved for the stack.
+.. The descriptor is always located at the _top of the stack_.
+
+* On the `context_switch_and_free`, why is the call to the `free` function done _after_ the instruction `movq (%rsi), %rsp`?
+
+* Change the source code so that
+** The `ut_create` function receives a thread name.
+** Every `context_switch`` writes in the standard output the names of the two threads involved in that switch.
