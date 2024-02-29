@@ -3,7 +3,11 @@
 
 == Week 1
 
-=== Lecture 1: 2023-02-23; 3h
+No classes on week 1.
+
+== Week 2
+
+=== Lecture 1: 2023-02-26; 3h
 
 * Course introduction.
 ** Goals.
@@ -20,9 +24,7 @@
 ** link:lecture-notes/2-threading-data-hazards.adoc[Threading data hazards].
 ** https://2324moodle.isel.pt/course/view.php?id=7916[Moodle]
 
-== Week 2
-
-=== Lecture 2: 2023-02-26; 1,5h
+=== Lecture 2: 2023-02-27; 1,5h
 
 * Multiple threads of execution.
 ** Shared and exclusive memory areas.
@@ -35,3 +37,4 @@
 **** Thread coordination and I/O operations.
 * Lecture resources
 ** link:https://docs.google.com/presentation/d/e/2PACX-1vQq_qqpJRuEQh9iJOlmwgJcumuRpgOxWLpe_Pz9Ecsz565OA2bl9PitjC-EvyISraPNQGQGmFE4Yr7l/pub?start=false&loop=false&delayms=3000&slide=id.p21[Slides].
+
