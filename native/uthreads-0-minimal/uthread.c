@@ -13,7 +13,6 @@
 // ... thread descriptor
 struct uthread
 {
-  // needs to be the first field
   uint64_t rsp;
   start_routine_t start;
   uint64_t arg;
@@ -52,7 +51,7 @@ void schedule()
                                : node_of(list_remove_head(&queue_ready), uthread_t, list_entry);
   if (next_thread == thread_running)
   {
-    // no context is needed because next_thread is already running
+    // no context switch is needed because next_thread is already running
     return;
   }
   uthread_t *current = thread_running;

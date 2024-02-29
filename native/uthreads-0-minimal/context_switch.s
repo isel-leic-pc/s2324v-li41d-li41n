@@ -54,7 +54,7 @@ context_switch_and_free:
 	movq (%rsi), %rsp
 
     // the call to free is done on the next thread stack
-    // otherwise we would be freeing the stack the call is being made
+    // otherwise we would be freeing the stack where the call is being made
     call free
 	
 	popq %r15

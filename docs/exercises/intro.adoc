@@ -1,0 +1,10 @@
+= Exercises for the introduction to concurrent programming
+
+* Create a unit test that illustrates concurrency data hazards when multiple threads mutate a shared `LinkedList` instance.
+
+* Create a unit test that illustrates concurrency data hazards when multiple created threads increment a shared counter.
+** Create a variant where instead of a single integer, there is an array of integers and each thread increments an exclusive index. What is the sum of the content of all indexes after all created threads have ended?
+
+* Change the `EchoServer1ThreadPerConnection` so that:
+** There are at most 100 threads used for the echo loop. These threads should be created when the server is started and should be reused to handle more than one connection.
+** There is a shared `ArrayBlockingQueue<E>` where the thread accepting the connections insert _something_ and where the echo threads receive that _something_. When this queue is full, then accepted connections should be closed.
