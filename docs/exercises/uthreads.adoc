@@ -1,6 +1,7 @@
 # Exercises about `uthreads`
 
 To develop and run `uthreads` with Visual Studio Code in a container, use the following procedure:
+
 * Make sure Docker Desktop is installed.
 * Open Visual Studio Code in the `native` folder.
 * Make sure the `Dev Containers` extension is installed.
