@@ -23,7 +23,7 @@ void ut_init();
 uthread_t *ut_create(start_routine_t, uint64_t arg);
 
 /**
- * Runs the uthreads system, returning when there aren't more threads alive. 
+ * Runs the uthreads system, returning when there aren't more threads alive.
  */
 void ut_run();
 

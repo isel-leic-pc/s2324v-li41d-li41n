@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 #include "../utils/list.h"
 #include "../utils/log.h"
@@ -12,10 +13,13 @@
 // ... thread descriptor
 struct uthread
 {
+  // needs to be the first field
   uint64_t rsp;
+  uint8_t *stack;
   start_routine_t start;
   uint64_t arg;
   list_entry_t list_entry;
+  list_entry_t joiners;
 };
 
 // ... struct mimicking the layout with the saved context
@@ -50,7 +54,7 @@ void schedule()
                                : node_of(list_remove_head(&queue_ready), uthread_t, list_entry);
   if (next_thread == thread_running)
   {
-    // no context switch is needed because next_thread is already running
+    // no context is needed because next_thread is already running
     return;
   }
   uthread_t *current = thread_running;
@@ -73,6 +77,12 @@ void internal_start()
   // call the threads entry-point
   thread_running->start(thread_running->arg);
 
+  // unblock all joiners
+  while (!list_is_empty(&thread_running->joiners))
+  {
+    list_add_tail(&queue_ready, list_remove_head(&thread_running->joiners));
+  }
+
   // the thread's entry point returned, so free current thread and switch to next thread
   schedule_and_free_current();
 }
@@ -84,8 +94,9 @@ void ut_init()
 
 uthread_t *ut_create(start_routine_t start_routine, uint64_t arg)
 {
-  uthread_t *thread = (uthread_t *)malloc(STACK_SIZE);
-  uthread_context_t *context = (uthread_context_t *)(((uint8_t *)thread) + STACK_SIZE - sizeof(uthread_context_t));
+  uthread_t *thread = (uthread_t *)malloc(sizeof(uthread_t));
+  thread->stack = (uint8_t *)malloc(STACK_SIZE);
+  uthread_context_t *context = (uthread_context_t *)(thread->stack + STACK_SIZE - sizeof(uthread_context_t));
 
   context->func_addr = internal_start;
 
@@ -93,9 +104,35 @@ uthread_t *ut_create(start_routine_t start_routine, uint64_t arg)
   thread->start = start_routine;
   thread->arg = arg;
 
+  list_init(&(thread->joiners));
+
   list_add_tail(&queue_ready, &(thread->list_entry));
 
   return thread;
+}
+
+bool ut_free(uthread_t *thread)
+{
+  // If the stack is not null, then the thread didn't yet ended.
+  if (thread->stack == NULL)
+  {
+    // Free thread descriptor.
+    free(thread);
+    return true;
+  }
+  logm("cannot free thread because it hasn't ended yet");
+  return false;
+}
+
+void ut_join(uthread_t *thread)
+{
+  if (thread->stack == NULL)
+  {
+    // Thread already ended
+    return;
+  }
+  list_add_tail(&thread->joiners, &thread_running->list_entry);
+  schedule();
 }
 
 void ut_run()
