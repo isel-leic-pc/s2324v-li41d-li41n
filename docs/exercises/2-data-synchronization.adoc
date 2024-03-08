@@ -1,0 +1,11 @@
+= Data Synchronization exercises
+
+* Create a variant of the `loosing items on a linked list` test, present in the `ThreadingHazardsTests`, that uses a lock to protect all accesses to the shared list instance.
+Observe the final number of elements in the list for multiple test executions.
+
+* Create a version of `SimpleLinkedStack` that
+** Is thread-safe.
+** Has a `size` instance property, backed by an instance field that is updated on all insertions and removals.
+
+* Create a variant of the `loosing items on a linked list` test, present in the `ThreadingHazardsTests`, that uses the list created above.
+Observe the final number of elements in the list for multiple test executions.
