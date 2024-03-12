@@ -38,3 +38,56 @@ No classes on week 1.
 * Lecture resources
 ** link:https://docs.google.com/presentation/d/e/2PACX-1vQq_qqpJRuEQh9iJOlmwgJcumuRpgOxWLpe_Pz9Ecsz565OA2bl9PitjC-EvyISraPNQGQGmFE4Yr7l/pub?start=false&loop=false&delayms=3000&slide=id.p21[Slides].
 
+== Week 3
+
+=== Lecture 3: 2023-03-04; 3,0h
+
+* link:./exercises/0-intro.adoc[Exercises about basic threading in the JVM and data synchronization hazards].
+* Introduction to the `uthreads` library.
+** Context switch.
+** Scheduling and the ready queue.
+** Thread creation and termination.
+* link:./exercises/1-uthreads.adoc[Exercises about the `uthreads` library].
+* Lecture resources
+** link:../native/uthreads-0-minimal[uthreads-0-minimal].
+
+=== Lecture 4: 2023-03-05; 1,5h
+
+* The `uthreads` library (continuation).
+** Adding control synchronization - `uthreads-1-join` version.
+*** Thread join - synchronization with another thread termination.
+*** Moving from the `running` into the `non-ready` state and the _joiners_ list in a thread descriptor.
+*** Moving from the `non-ready` into the `ready` state and delegation of execution.
+** Adding I/O with non-busy waiting - `uthreads-2-sockets` version.
+*** Non-blocking I/O and the epoll APIs in the Linux OS.
+*** Auxiliary data structures and algorithms.
+* Lecture resources
+** link:../native/uthreads-1-join[uthreads-1-join].
+** link:../native/uthreads-2-sockets[uthreads-2-sockets].
+
+== Week 4
+
+=== Lecture 5: 2023-03-11; 3.0h
+
+* Data synchronization via the use of locks.
+** Characterization of the lock behavior - lock states and transitions.
+** Memory visibility guarantees.
+** Using locks for mutual exclusion on shared data access.
+** Using classes and member visibility to ensure proper _locked_ access to shared data.
+* link:./exercises/2-data-synchronization.adoc[Exercises on data synchronization].
+* Control synchronization and synchronizers.
+* The _semaphore_ synchronizer and an example use-case.
+* The _monitor_ synchronizer building block.
+** Condition characterization
+*** wait sets.
+*** _await_ and _signal_ behavior.
+*** Lock release and acquisition guarantees.
+* Using monitors to implement a simple unary semaphore without timeouts or fairness.
+
+=== Lecture 6: 2023-03-11; 1.5h
+
+* Continuation of the previous lecture.
+** Safety and liveliness properties of synchronizers.
+* Thread interruption.
+** Interaction between thread interruption and synchronizers.
+** Withdrawal processing.
