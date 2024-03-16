@@ -84,3 +84,16 @@
 *** _await_ and _signal_ behavior.
 *** Lock release and acquisition guarantees.
 * Using monitors to implement a simple unary semaphore without timeouts or fairness.
+
+=== Lecture 7: 2023-03-15, 3,0h
+
+* Thread interruption and its relation to control synchronization.
+* Cancellation per timeout and per interruption.
+* Adding cancellation to the simple semaphore implementation.
+** Ensuring liveliness properties with cancellation.
+* Implementation of a unary semaphore with fairness.
+** Adding a FIFO queue representing the awaiting acquire requests.
+* Using specific signalling to avoid the use of `signalAll`.
+* Introduction the the _kernel-style_ synchronizer design.
+* Lecture resources:
+** link:../jvm/src/main/kotlin/pt/isel/pc/sketches/leic51n/sync[sketched monitors].
