@@ -97,3 +97,26 @@
 * Introduction the the _kernel-style_ synchronizer design.
 * Lecture resources:
 ** link:../jvm/src/main/kotlin/pt/isel/pc/sketches/leic51n/sync[sketched monitors].
+
+== Week 5
+
+=== Lecture 8: 2023-03-18; 1.5h
+
+* Continuing with the previous class and the implementation of synchronizers using the _kernel-style_ design.
+** Implementation of a synchronous message queue.
+
+=== Lecture 9: 2023-03-22; 3.0h
+
+* Laboratory class: supporting the development of the first exercise set. 
+
+== Week 6 
+
+=== Lecture 10: 2023-03-25; 1.5h
+
+* Thread pools
+** Concept and motivation.
+** A thread pool as a synchronizer example.
+** Implementation of a simple thread pool.
+* Testing synchronizers
+** Stress tests.
+** Testing infrastructure and the `TestHelper` class.

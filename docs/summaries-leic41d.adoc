@@ -91,3 +91,39 @@ No classes on week 1.
 * Thread interruption.
 ** Interaction between thread interruption and synchronizers.
 ** Withdrawal processing.
+
+== Week 5
+
+=== Lecture 7: 2023-03-18; 3.0h
+
+* Thread interruption and its relation to control synchronization.
+* Cancellation per timeout and per interruption.
+* Adding cancellation to the simple semaphore implementation.
+** Ensuring liveliness properties with cancellation.
+* Implementation of a unary semaphore with fairness.
+** Adding a FIFO queue representing the awaiting acquire requests.
+* Using specific signalling to avoid the use of `signalAll`.
+* Introduction the the _kernel-style_ synchronizer design.
+* Lecture resources:
+** link:../jvm/src/main/kotlin/pt/isel/pc/sketches/leic51d/sync[sketched monitors].
+
+=== Lecture 8: 2023-03-19; 1.5h
+
+== Week 6 
+
+* Continuing with the previous class and the implementation of synchronizers using the _kernel-style_ design.
+** Implementation of a synchronous message queue.
+
+=== Lecture 9: 2023-03-25; 3.0h
+
+* Laboratory class: supporting the development of the first exercise set. 
+
+=== Lecture 10: 2023-03-25; 1.5h
+
+* Thread pools
+** Concept and motivation.
+** A thread pool as a synchronizer example.
+** Implementation of a simple thread pool.
+* Testing synchronizers
+** Stress tests.
+** Testing infrastructure and the `TestHelper` class.
