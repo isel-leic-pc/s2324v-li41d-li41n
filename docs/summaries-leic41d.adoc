@@ -109,16 +109,16 @@ No classes on week 1.
 
 === Lecture 8: 2023-03-19; 1.5h
 
-== Week 6 
-
 * Continuing with the previous class and the implementation of synchronizers using the _kernel-style_ design.
 ** Implementation of a synchronous message queue.
+
+== Week 6 
 
 === Lecture 9: 2023-03-25; 3.0h
 
 * Laboratory class: supporting the development of the first exercise set. 
 
-=== Lecture 10: 2023-03-25; 1.5h
+=== Lecture 10: 2023-03-26; 1.5h
 
 * Thread pools
 ** Concept and motivation.
