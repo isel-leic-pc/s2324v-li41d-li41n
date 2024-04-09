@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.KotlinCompile
+
 plugins {
     kotlin("jvm") version "1.9.21"
 }
@@ -25,6 +27,11 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+    // To access the *non-public* Continuation API
+    // ONLY for learning purposes
+    jvmArgs(listOf(
+        "--add-exports", "java.base/jdk.internal.vm=ALL-UNNAMED"
+    ))
 }
 kotlin {
     jvmToolchain(21)
