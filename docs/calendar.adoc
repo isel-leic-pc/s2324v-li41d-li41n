@@ -45,14 +45,14 @@ Weekly tentative schedule
 
 * W6 - 2024-03-25
 ** Implementing custom synchronizers using monitors.
+** Note: LEIC41N - Easter break on Friday.
 
 * W7 - 2024-04-01
 ** Introduction to the memory model concept and the Java Memory Model (JMM).
-** Note: LEIC41N - Easter break on Friday.
+** Note: LEIC41D - Easter break on Monday.
 
 * W8 - 2024-04-08
 ** Lock-free algorithms and data structures.
-** Note: LEIC41D - Easter break on Monday.
 
 * W9 - 2024-04-15
 ** Asynchronous I/O in the JVM platform - NIO2.
