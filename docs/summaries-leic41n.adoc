@@ -3,7 +3,7 @@
 
 == Week 1
 
-=== Lecture 1: 2023-02-23; 3h
+=== Lecture 1: 2024-02-23; 3h
 
 * Course introduction.
 ** Goals.
@@ -22,7 +22,7 @@
 
 == Week 2
 
-=== Lecture 2: 2023-02-26; 1,5h
+=== Lecture 2: 2024-02-26; 1,5h
 
 * Multiple threads of execution.
 ** Shared and exclusive memory areas.
@@ -36,7 +36,7 @@
 * Lecture resources
 ** link:https://docs.google.com/presentation/d/e/2PACX-1vQq_qqpJRuEQh9iJOlmwgJcumuRpgOxWLpe_Pz9Ecsz565OA2bl9PitjC-EvyISraPNQGQGmFE4Yr7l/pub?start=false&loop=false&delayms=3000&slide=id.p21[Slides].
 
-=== Lecture 3: 2023-03-01; 3h
+=== Lecture 3: 2024-03-01; 3h
 
 * link:./exercises/0-intro.adoc[Exercises about basic threading in the JVM and data synchronization hazards].
 * Introduction to the `uthreads` library.
@@ -49,7 +49,7 @@
 
 == Week 3
 
-=== Lecture 4: 2023-03-04; 1,5h
+=== Lecture 4: 2024-03-04; 1,5h
 
 * The `uthreads` library (continuation).
 ** Adding control synchronization - `uthreads-1-join` version.
@@ -63,7 +63,7 @@
 ** link:../native/uthreads-1-join[uthreads-1-join].
 ** link:../native/uthreads-2-sockets[uthreads-2-sockets].
 
-=== Lecture 5: 2023-03-08; 3,0h
+=== Lecture 5: 2024-03-08; 3,0h
 
 * Data synchronization via the use of locks.
 ** Characterization of the lock behavior - lock states and transitions.
@@ -74,7 +74,7 @@
 
 == Week 4
 
-=== Lecture 6: 2023-03-11; 1,5h
+=== Lecture 6: 2024-03-11; 1,5h
 
 * Control synchronization and synchronizers.
 * The _semaphore_ synchronizer and an example use-case.
@@ -85,7 +85,7 @@
 *** Lock release and acquisition guarantees.
 * Using monitors to implement a simple unary semaphore without timeouts or fairness.
 
-=== Lecture 7: 2023-03-15, 3,0h
+=== Lecture 7: 2024-03-15, 3,0h
 
 * Thread interruption and its relation to control synchronization.
 * Cancellation per timeout and per interruption.
@@ -100,18 +100,18 @@
 
 == Week 5
 
-=== Lecture 8: 2023-03-18; 1.5h
+=== Lecture 8: 2024-03-18; 1.5h
 
 * Continuing with the previous class and the implementation of synchronizers using the _kernel-style_ design.
 ** Implementation of a synchronous message queue.
 
-=== Lecture 9: 2023-03-22; 3.0h
+=== Lecture 9: 2024-03-22; 3.0h
 
 * Laboratory class: supporting the development of the first exercise set. 
 
 == Week 6 
 
-=== Lecture 10: 2023-03-25; 1.5h
+=== Lecture 10: 2024-03-25; 1.5h
 
 * Thread pools
 ** Concept and motivation.
@@ -120,3 +120,31 @@
 * Testing synchronizers
 ** Stress tests.
 ** Testing infrastructure and the `TestHelper` class.
+
+== Week 7
+
+=== Lecture 11: 2024-04-05; 3.0h
+
+* Virtual threads in the JVM platform.
+** OS threads vs. platform threads vs. virtual threads.
+** Relation between CPU and OS threads and between platform threads and virtual threads.
+*** The concept of carrier threads
+*** Preemptive scheduling in OS threads and cooperative scheduling in virtual threads.
+** Examples.
+* The Java Memory Model (JMM).
+** What is a memory model and why is it needed.
+** Analysis of a concrete example: double-checked locking.
+
+== Week 8
+
+=== Lecture 12: 2024-04-08; 1.5h
+
+* The Java Memory Model (continuation).
+** The JMM components.
+*** Actions.
+*** The HB partial order relation.
+*** Guarantees provided by the HB order.
+*** Construction rules for the HB order.
+*** Volatile reads and writes.
+** Usage examples.
+

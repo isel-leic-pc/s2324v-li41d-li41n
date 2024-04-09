@@ -7,7 +7,7 @@ No classes on week 1.
 
 == Week 2
 
-=== Lecture 1: 2023-02-26; 3h
+=== Lecture 1: 2024-02-26; 3h
 
 * Course introduction.
 ** Goals.
@@ -24,7 +24,7 @@ No classes on week 1.
 ** link:lecture-notes/2-threading-data-hazards.adoc[Threading data hazards].
 ** https://2324moodle.isel.pt/course/view.php?id=7916[Moodle]
 
-=== Lecture 2: 2023-02-27; 1,5h
+=== Lecture 2: 2024-02-27; 1,5h
 
 * Multiple threads of execution.
 ** Shared and exclusive memory areas.
@@ -40,7 +40,7 @@ No classes on week 1.
 
 == Week 3
 
-=== Lecture 3: 2023-03-04; 3,0h
+=== Lecture 3: 2024-03-04; 3,0h
 
 * link:./exercises/0-intro.adoc[Exercises about basic threading in the JVM and data synchronization hazards].
 * Introduction to the `uthreads` library.
@@ -51,7 +51,7 @@ No classes on week 1.
 * Lecture resources
 ** link:../native/uthreads-0-minimal[uthreads-0-minimal].
 
-=== Lecture 4: 2023-03-05; 1,5h
+=== Lecture 4: 2024-03-05; 1,5h
 
 * The `uthreads` library (continuation).
 ** Adding control synchronization - `uthreads-1-join` version.
@@ -67,7 +67,7 @@ No classes on week 1.
 
 == Week 4
 
-=== Lecture 5: 2023-03-11; 3.0h
+=== Lecture 5: 2024-03-11; 3.0h
 
 * Data synchronization via the use of locks.
 ** Characterization of the lock behavior - lock states and transitions.
@@ -84,7 +84,7 @@ No classes on week 1.
 *** Lock release and acquisition guarantees.
 * Using monitors to implement a simple unary semaphore without timeouts or fairness.
 
-=== Lecture 6: 2023-03-11; 1.5h
+=== Lecture 6: 2024-03-11; 1.5h
 
 * Continuation of the previous lecture.
 ** Safety and liveliness properties of synchronizers.
@@ -94,7 +94,7 @@ No classes on week 1.
 
 == Week 5
 
-=== Lecture 7: 2023-03-18; 3.0h
+=== Lecture 7: 2024-03-18; 3.0h
 
 * Thread interruption and its relation to control synchronization.
 * Cancellation per timeout and per interruption.
@@ -107,18 +107,18 @@ No classes on week 1.
 * Lecture resources:
 ** link:../jvm/src/main/kotlin/pt/isel/pc/sketches/leic51d/sync[sketched monitors].
 
-=== Lecture 8: 2023-03-19; 1.5h
+=== Lecture 8: 2024-03-19; 1.5h
 
 * Continuing with the previous class and the implementation of synchronizers using the _kernel-style_ design.
 ** Implementation of a synchronous message queue.
 
 == Week 6 
 
-=== Lecture 9: 2023-03-25; 3.0h
+=== Lecture 9: 2024-03-25; 3.0h
 
 * Laboratory class: supporting the development of the first exercise set. 
 
-=== Lecture 10: 2023-03-26; 1.5h
+=== Lecture 10: 2024-03-26; 1.5h
 
 * Thread pools
 ** Concept and motivation.
@@ -127,3 +127,37 @@ No classes on week 1.
 * Testing synchronizers
 ** Stress tests.
 ** Testing infrastructure and the `TestHelper` class.
+
+== Week 7
+
+=== Lecture 11: 2024-04-02; 1.5h
+
+* Intrinsic monitors in the JVM platform.
+* Virtual threads in the JVM platform.
+** OS threads vs. platform threads vs. virtual threads.
+** Relation between CPU and OS threads and between platform threads and virtual threads.
+*** The concept of carrier threads
+*** Preemptive scheduling in OS threads and cooperative scheduling in virtual threads.
+** Examples.
+
+== Week 8
+
+=== Lecture 12: 2024-04-08; 3.0h
+
+* The Java Memory Model (JMM).
+** What is a memory model and why is it needed.
+** Analysis of a concrete example: double-checked locking.
+** The JMM components.
+*** Actions.
+*** The HB partial order relation.
+*** Guarantees provided by the HB order.
+*** Construction rules for the HB order.
+*** Volatile reads and writes.
+** Usage examples.
+
+=== Lecture 13: 2024-04-08; 1.5h
+
+* Lock-free algorithms and data structures.
+** Creation of a lock-free thread-safe modulo counter.
+** Optimistic concurrency and the CAS (compara-and-set) building block.
+** The Treiber algorithm for a lock-free stack based on a linked list.
