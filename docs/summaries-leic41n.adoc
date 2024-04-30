@@ -148,3 +148,47 @@
 *** Volatile reads and writes.
 ** Usage examples.
 
+== Lecture 13: 2024-04-13
+
+* Lock-free algorithms and data structures.
+** Creation of a lock-free thread-safe modulo counter.
+** Optimistic concurrency and the CAS (compara-and-set) building block.
+** The Treiber algorithm for a lock-free stack based on a linked list.
+
+== Week 9
+
+=== Lecture 14: 2024-04-15; 1.5h
+
+* No lecture
+
+=== Lecture 15: 2024-04-20; 3.0h
+
+* No lecture
+
+== Week 10
+
+=== Lecture 16: 2024-04-15; 1.5h
+
+* Futures in the JVM platform.
+** The `Future` interface and its limitations for non-blocking programming.
+** The `CompletationStage` interface and its combination functions.
+*** Analysis of some examples: `thenApply`, `thenCompose`, and `handle`.
+*** Synchronous and asynchronous versions.
+** The `CompletableFuture` class.
+** Application examples.
+
+=== Lecture 17: 2024-04-20; 3.0h
+
+* No lecture
+
+* Asynchronous I/O in the JVM platform.
+** The NIO API.
+** Socket classes with asynchronous APIs - `AsynchronousSocketChannel` and `AsynchronousServerSocketChannel`.
+** The two API variants.
+*** Returning a `Future<R>`.
+*** Receiving a `CompletionHandler<R>`.
+** Application examples.
+
+* Support the development of the second exercise set. 
+
+
