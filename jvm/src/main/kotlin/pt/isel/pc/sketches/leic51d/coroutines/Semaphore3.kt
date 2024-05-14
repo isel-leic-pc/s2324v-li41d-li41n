@@ -14,6 +14,10 @@ class Semaphore3(
     private val lock = ReentrantLock()
     private var units = initialUnits
 
+    fun getCurrentUnits() = lock.withLock {
+        units
+    }
+
     private data class Request(
         val continuation: CancellableContinuation<Unit>,
         var isDone: Boolean,
@@ -47,9 +51,11 @@ class Semaphore3(
             suspendCancellableCoroutine<Unit> { continuation ->
                 lock.withLock {
                     if (units > 0) {
+                        // fast-path
                         units -= 1
                         continuation.resume(Unit)
                     } else {
+                        // wait-path
                         requestNode = requests.enqueue(
                             Request(continuation, false)
                         )

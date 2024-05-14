@@ -15,11 +15,15 @@ class Semaphore4(
     private var units = initialUnits
 
     private data class Request(
-        var continuation: CancellableContinuation<Unit>?,
+        val continuation: CancellableContinuation<Unit>,
         var isDone: Boolean,
     )
 
     private val requests = NodeLinkedList<Request>()
+
+    fun getCurrentUnits() = lock.withLock {
+        units
+    }
 
     /**
      * Releases (i.e. adds) one unit to the semaphore
@@ -42,29 +46,34 @@ class Semaphore4(
      * Acquires one unit from the semaphore
      */
     suspend fun acquire() {
-        val request = Request(null, false)
-        var requestNode: NodeLinkedList.Node<Request>? = null
+        var isFastPath = false
+        var requestNode: NodeLinkedList.Node<Semaphore4.Request>? = null
         try {
             suspendCancellableCoroutine<Unit> { continuation ->
                 lock.withLock {
                     if (units > 0) {
+                        // fast-path
+                        isFastPath = true
                         units -= 1
-                        request.isDone = true
                         continuation.resume(Unit)
                     } else {
-                        request.continuation = continuation
+                        // wait-path
                         requestNode = requests.enqueue(
-                            request
+                            Request(continuation, false)
                         )
                     }
                 }
             }
         } catch (ex: CancellationException) {
+            if (isFastPath) {
+                return
+            }
+            val observedNode = requestNode ?: throw ex
             lock.withLock {
-                if (request.isDone) {
+                if (observedNode.value.isDone) {
                     return
                 }
-                requests.remove(requestNode!!)
+                requests.remove(observedNode)
                 throw ex
             }
         }

@@ -1,6 +1,7 @@
 package pt.isel.pc.coroutines
 
 import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
@@ -15,6 +16,29 @@ import kotlin.test.Test
 import kotlin.test.assertFails
 
 class CancellationLearningTests {
+
+    @Test
+    fun third() {
+        runBlocking(Dispatchers.Default) {
+            val job = launch {
+                try {
+                    Thread.sleep(1000)
+                    val s = suspendCancellableCoroutine { continuation ->
+                        logger.info("Before sleep")
+                        Thread.sleep(1000)
+                        logger.info("After sleep")
+                        continuation.resume("done")
+                    }
+                    logger.info("Result {}", s)
+                } catch (ex: CancellationException) {
+                    logger.info("Cancellation exception")
+                }
+            }
+
+            delay(500)
+            job.cancel()
+        }
+    }
 
     @Test
     fun second() {
